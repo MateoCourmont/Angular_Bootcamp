@@ -4,6 +4,8 @@ const cors = require('cors');
 // Initialiser l'application back
 const app = express();
 
+app.use('/uploads', express.static('uploads'));
+
 const path = require('path')
 
 // Autoriser envoie JSON

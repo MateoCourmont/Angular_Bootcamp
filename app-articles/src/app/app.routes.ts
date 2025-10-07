@@ -28,6 +28,10 @@ export const routes: Routes = [
         path: 'article-add',
         component: ArticlesAddPage
     },
+    { 
+        path: 'articles/edit/:id', 
+        component: ArticlesAddPage 
+    },
     {
         path: 'articles/:id',
         component: ArticleDetailsPage

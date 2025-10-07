@@ -22,6 +22,9 @@ let DB_Articles = [
     { id: '14', title: 'AirPods Pro 3', desc: 'La meilleure Réduction active du bruit intra-auriculaire au monde. Jusqu’à 2x supé­rieure à celle des AirPods Pro 2', price: 249.00, author: 'Apple', imgPath: '/assets/images/airpods-pro-3.jpg.png' },
 ];
 
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); 
+
 // ================================================================== //
 // GESTION ARTICLES
 // ================================================================== //
@@ -57,37 +60,25 @@ router.get("/:id", async (request, response) => {
 /**
  * Route POST : Pour ajouter un article
  */
-router.post("/save", async (request, response) => {
-    // Récupérer l'article qui est envoyé en JSON
-    const articleJSON = request.body;
+router.post("/save", upload.single('img'), (req, res) => {
+    // Les champs texte sont dans req.body
+    const { title, desc, price, author } = req.body;
 
-    let foundArticle = null;
+    // Le fichier est dans req.file
+    const imgPath = req.file ? '/uploads/' + req.file.filename : '/assets/images/default.png';
 
-    // Est-ce on a un id envoyer dans le json
-    if (articleJSON.id != undefined || articleJSON.id) {
-        // essayer de trouver un article existant
-        foundArticle = DB_Articles.find(article => article.id === articleJSON.id);
-    }
+    const newArticle = {
+        id: uuidv4(),
+        title,
+        desc,
+        price: parseFloat(price),
+        author,
+        imgPath
+    };
 
-    // Si je trouve je modifie les nouvelles valeurs
-    if (foundArticle) {
-        foundArticle.title = articleJSON.title;
-        foundArticle.desc = articleJSON.desc;
-        foundArticle.price = articleJSON.price;
-        foundArticle.author = articleJSON.author;
-        foundArticle.imgPath = articleJSON.imgPath;
+    DB_Articles.push(newArticle);
 
-        return httpApiResponse(response, "200", `L'article a été modifié avec succès`, articleJSON);
-    }
-
-    // Sinon par défaut je créer
-
-    // -- generer l'id
-    articleJSON.id = uuidv4();
-
-    DB_Articles.push(articleJSON);
-
-    return httpApiResponse(response, "200", `Article crée avec succès !`, articleJSON);
+    return httpApiResponse(res, "200", "Article crée avec succès !", newArticle);
 });
 
 

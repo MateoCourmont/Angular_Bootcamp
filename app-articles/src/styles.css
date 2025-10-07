@@ -33,3 +33,7 @@
 .small-image {
     @apply size-8/10
 }
+
+.btn-format {
+  @apply shadow-lg cursor-pointer hover:scale-101 disabled:cursor-not-allowed;
+}
