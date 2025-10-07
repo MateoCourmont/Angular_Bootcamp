@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+    --font-poppins: 'Poppins', sans-serif;
+
+    /* Thème rose light : #f7bcd9 dark : #b8256c */
+    /* Thème vert light : #73deb1 dark : #224235*/
+    /* Théme violet light : #caa4eb dark :  #432959 */
+    /* Thème jaune light : #fcba03 dark : #c95706 */
+
+    --color-accent: #f7bcd9; 
+    --color-accent-dark: #b8256c; 
+}
+
+.input-field {
+    @apply bg-neutral-200 dark:bg-neutral-600 text-black dark:text-neutral-50 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent-dark focus:border-transparent font-poppins;
+}
+
+.field-container {
+    @apply  gap-1 flex flex-col w-full text-lg;
+}
+
+.label-field {
+    @apply text-xs lg:text-sm font-poppins text-neutral-400;
+}
+
+.main-wrapper, .left-side, .header-wrapper {
+    background-image: url('https://i.natgeofe.com/n/c9107b46-78b1-4394-988d-53927646c72b/1095.jpg');
+}
+
+.small-image {
+    @apply size-8/10
+}

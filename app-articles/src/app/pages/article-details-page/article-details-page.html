@@ -1,0 +1,17 @@
+<main class="flex flex-col md:flex-row min-h-svh bg-neutral-100 dark:bg-neutral-800 px-4 lg:pr-32">
+  <div class="img-wrapper w-full md:w-1/2 flex items-center justify-center">
+    <img 
+      [src]="'http://localhost:3000' + article?.imgPath" 
+      alt="img-article" 
+      class="object-contain w-full h-auto md:h-full"
+    >
+  </div>
+
+  <div class="text-wrapper w-full md:w-1/2 flex flex-col items-start md:justify-center justify-start gap-4 p-4 md:p-10">
+    <h1 class="text-4xl font-poppins font-semibold text-black dark:text-neutral-50">{{ article?.title }}</h1>
+    <p class="text-lg font-poppins text-black dark:text-neutral-50">{{ article?.desc }}</p>
+
+    <p class="text-3xl md:text-5xl font-poppins font-semibold italic text-accent dark:text-accent-dark w-full text-end">{{ article?.price }}€</p>
+    <p class="text-lg font-poppins text-black dark:text-neutral-50">Conçu par {{ article?.author }}.</p>
+  </div>
+</main>

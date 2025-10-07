@@ -1,0 +1,27 @@
+<body>
+  <app-header-component></app-header-component>
+  <main class="min-h-svh p-6 md:py-10 bg-neutral-100 dark:bg-neutral-800">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      @for (article of articles; track article) {
+        <div class="flex flex-col cursor-pointer" (click)="goToArticleDetail(article.id)">
+          
+          <!-- Container image -->
+          <div class="h-48 w-full flex justify-center items-center mb-2 overflow-hidden transition-transform hover:scale-105">
+            <img 
+              [src]="'http://localhost:3000' + article.imgPath" 
+              alt="img-article" 
+              class="object-contain w-full h-full"
+              [class.small-image]="article.title === 'AirPods Max' || article.title === 'AirPods 4' || article.title === 'AirPods 4 (ANC)'"
+            >
+          </div>
+
+          <!-- Titre article -->
+          <p class="font-poppins font-semibold text-black dark:text-neutral-50 text-end justify-center gap-6 self-center flex truncate px-2 w-full">
+            <span>{{ article.title }}</span> <span class="italic text-accent dark:text-accent-dark">{{ article.price }}€</span>
+          </p>
+
+        </div>
+      }
+    </div>
+  </main>
+</body>

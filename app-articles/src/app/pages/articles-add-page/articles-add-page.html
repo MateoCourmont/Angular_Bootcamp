@@ -1,0 +1,50 @@
+<body>
+  <app-header-component></app-header-component>
+  <main class="flex min-h-svh items-start justify-start bg-neutral-100 dark:bg-neutral-800 p-4 md:p-10">
+
+    <form (ngSubmit)="addArticle()" #articleForm="ngForm" class="flex flex-col md:flex-wrap gap-6 w-full md:w-1/2">
+      
+      <!-- Nom de l'article -->
+      <div class="field-container">
+        <label class="label-field">Nom de l'article</label>
+        <input type="text" name="title" class="input-field" [(ngModel)]="newArticle.title" required>
+      </div>
+
+      <!-- Description -->
+      <div class="field-container">
+        <label class="label-field">Description de l'article</label>
+        <textarea name="desc" cols="30" rows="10" class="input-field" [(ngModel)]="newArticle.desc" required></textarea>
+      </div>
+
+      <!-- Prix -->
+      <div class="field-container">
+        <label class="label-field">Prix de l'article</label>
+        <input type="number" name="price" class="input-field" [(ngModel)]="newArticle.price" required #priceField="ngModel" min="0" step="1" >
+
+        <p class="text-red-600 mt-1" *ngIf="priceField.invalid && priceField.touched">
+            Le prix doit être un nombre supérieur ou égal à 0.
+        </p>
+      </div>
+
+      <!-- Fabricant -->
+      <div class="field-container">
+        <label class="label-field">Fabricant de l'article</label>
+        <input type="text" name="author" class="input-field" [(ngModel)]="newArticle.author" required>
+      </div>
+
+      <!-- Image -->
+      <div class="field-container">
+        <label class="label-field">Image de l'article</label>
+        <input type="file" class="input-field" (change)="onFileSelected($event)" required>
+      </div>
+
+      <button type="submit" class="w-full bg-accent dark:bg-accent-dark py-2 rounded-md text-neutral-50 cursor-pointer md:w-1/3 self-end font-poppins text-lg mt-2 disabled:opacity-50" [disabled]="articleForm.invalid" (click)="goToArticlesList()">Ajouter l'article</button>
+
+    </form>
+
+    <!-- Messages -->
+    <p *ngIf="successMessage" class="text-neutral-50 p-2 rounded-lg bg-green-500 absolute top-7 inset-x-0 text-center">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="text-neutral-50 p-2 rounded-lg bg-red-600 absolute top-7 inset-x-0 text-center">{{ errorMessage }}</p>
+
+  </main>
+</body>

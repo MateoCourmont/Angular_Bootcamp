@@ -1,0 +1,50 @@
+<body>
+    <main class="main-wrapper flex flex-col lg:flex-row items-start justify-end lg:justify-start h-svh bg-accent dark:bg-accent-dark bg-blend-overlay bg-top bg-cover lg:bg-neutral-100 lg:dark:bg-neutral-800">
+
+        <!-- Left side -->
+
+        <div class="left-side hidden lg:flex lg:w-3/5 h-lvh bg-accent dark:bg-accent-dark bg-blend-overlay bg-cover bg-center px-20 py-30 gap-12">
+            <div class="text-part flex flex-col items-start justify-start h-1/3 w-full gap-2">
+ 
+                <!-- Title -->
+
+                <p class="text-7xl font-poppins text-neutral-50"><span class="font-light text-shadow-lg">Bonjour,</span><br><span class="font-bold text-shadow-lg">bienvenue !</span></p>
+                <p class="text-2xl font-poppins text-neutral-50 text-shadow-lg">Connectez-vous ou inscrivez-vous pour continuer.</p>
+            </div>
+        </div>
+
+
+        <!-- Right side -->
+
+        <div class="right-side flex flex-col w-full lg:h-full md:h-1/2 lg:w-2/5 items-start lg:items-center lg:justify-start p-8 lg:px-20 lg:py-30 gap-10 lg:gap-20 rounded-t-3xl lg:rounded-none bg-neutral-100 dark:bg-neutral-800">
+            <p class="text-4xl lg:text-6xl font-poppins font-semibold text-black dark:text-neutral-50">Inscription</p>
+
+            <form action="" class="flex flex-col w-full gap-6">
+
+                <!-- Username & Email & Password -->
+
+                <div class="field-container">
+                    <label class="label-field">Nom d'utilisateur</label>
+                    <input type="text" class="input-field">
+                </div>
+
+                <div class="field-container">
+                    <label class="label-field">Adresse email</label>
+                    <input type="email" class="input-field">
+                </div>
+
+                <div class="field-container">
+                    <label class="label-field">Mot de passe</label>
+                    <input type="password" class="input-field">
+                </div>
+
+                <!-- Submit button -->
+
+                <button class="text-lg font-semibold w-full bg-accent dark:bg-accent-dark py-2 rounded-md text-neutral-50 mt-4 hover:cursor-pointer" (click)="register()">Créer un compte</button>
+
+                <p class="text-lg font-poppins text-black dark:text-neutral-50">Déjà un compte ? <a routerLink="/login" class="text-lg font-poppins text-black dark:text-neutral-50 hover:text-accent dark:hover:text-accent-dark underline">Se connecter</a></p>
+            </form>
+        </div>
+    </main>
+</body>
+
