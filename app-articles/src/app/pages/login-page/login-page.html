@@ -19,26 +19,31 @@
         <div class="right-side flex flex-col w-full lg:h-full md:h-1/2 lg:w-2/5 items-start lg:items-center lg:justify-start p-8 lg:px-20 lg:py-30 gap-10 lg:gap-20 rounded-t-3xl lg:rounded-none bg-neutral-100 dark:bg-neutral-800">
             <p class="text-4xl lg:text-6xl font-poppins font-semibold text-black dark:text-neutral-50">Connexion</p>
 
-            <form action="" class="flex flex-col w-full gap-6">
+            <form #loginForm="ngForm" (ngSubmit)="login()" class="flex flex-col w-full gap-6">
 
                 <!-- Email & Password -->
 
                 <div class="field-container">
                     <label class="label-field">Adresse email</label>
-                    <input type="email" class="input-field">
+                    <input type="email" name="email" [(ngModel)]="email" required #emailField="ngModel" class="input-field">
+                    <p *ngIf="emailField.invalid && emailField.touched" class="text-red-600">Email requis</p>
                 </div>
 
                 <div class="field-container">
                     <label class="label-field">Mot de passe</label>
-                    <input type="password" class="input-field">
-                    <a routerLink="" class="text-xs lg:text-sm font-poppins text-black dark:text-neutral-50 hover:text-accent dark:hover:text-accent-dark  w-full text-right underline mt-2">Mot de passe oublié ?</a>
+                    <input type="password" name="password" [(ngModel)]="password" required #passwordField="ngModel" class="input-field">
+                    <p *ngIf="passwordField.invalid && passwordField.touched" class="text-red-600">Mot de passe requis</p>
+                    <a routerLink="/forgot-password" class="text-xs lg:text-sm font-poppins text-black dark:text-neutral-50 hover:text-accent dark:hover:text-accent-dark  w-full text-right underline mt-2">Mot de passe oublié ?</a>
                 </div>
 
                 <!-- Submit button -->
 
-                <button class="btn-format text-lg font-semibold w-full bg-accent dark:bg-accent-dark py-2 rounded-md text-neutral-50 hover:cursor-pointer" (click)="login()">Se connecter</button>
+                <button type="submit" [disabled]="loginForm.invalid" class="btn-format text-lg font-semibold w-full bg-accent dark:bg-accent-dark py-2 rounded-md text-neutral-50 hover:cursor-pointer">Se connecter</button>
 
-                <p class="text-lg font-poppins text-black dark:text-neutral-50">Pas encore de compte ? <a routerLink="/register" class="text-lg font-poppins text-black dark:text-neutral-50 hover:text-accent dark:hover:text-accent-dark underline">Créer un compte</a></p>
+                <p class="text-lg font-poppins text-black dark:text-neutral-50">Pas encore de compte ? <a routerLink="/register" (click)="$event.preventDefault()" class="text-lg font-poppins text-black dark:text-neutral-50 hover:text-accent dark:hover:text-accent-dark underline">Créer un compte</a></p>
+
+                <p *ngIf="successMessage" class="text-green-500 text-lg font-poppins">{{ successMessage }}</p>
+                <p *ngIf="errorMessage" class="text-red-600 text-lg font-poppins">{{ errorMessage }}</p>
             </form>
         </div>
     </main>

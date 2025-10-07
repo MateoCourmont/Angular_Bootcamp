@@ -22,7 +22,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // Injecter routes
 const authRouter = require('./auth/auth-routes');
-app.use(authRouter);
+app.use('/auth', authRouter);
 
 const articlesRouter = require('./articles/articles-routes');
 app.use('/articles', articlesRouter);

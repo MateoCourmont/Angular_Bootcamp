@@ -31,7 +31,7 @@ const upload = multer({ dest: 'uploads/' });
 /**
  * Route GET : Pour récupèrer tout les articles
  */
-router.get("/", async (request, response) => {
+router.get("/", middlewareVerifyToken, (request, response) => {
     // Récupèrer une liste/tableau d'article
     const articles = DB_Articles;
 
@@ -42,7 +42,7 @@ router.get("/", async (request, response) => {
 /**
  * Route GET : Pour récupèrer un article
  */
-router.get("/:id", async (request, response) => {
+router.get("/:id", middlewareVerifyToken, (request, response) => {
     // Récupérer l'id de l'url
     const idParam = request.params.id;
 
@@ -60,7 +60,7 @@ router.get("/:id", async (request, response) => {
 /**
  * Route POST : Pour ajouter un article
  */
-router.post("/save", upload.single('img'), (req, res) => {
+router.post("/save", middlewareVerifyToken, upload.single('img'), (req, res) => {
     // Récupérer les champs texte + id si modification
     const { id, title, desc, price, author } = req.body;
 
@@ -104,7 +104,7 @@ router.post("/save", upload.single('img'), (req, res) => {
 /**
  * Route POST : Pour ajouter supprimer un article
  */
-router.delete('/:id', (request, response) => {
+router.delete('/:id', middlewareVerifyToken, (request, response) => {
 
     // Il faut l'id en entier
     const id = request.params.id;

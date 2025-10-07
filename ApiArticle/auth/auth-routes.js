@@ -66,7 +66,7 @@ router.post("/signup", async (request, response) => {
     }
 
     // Erreur : Les champs inexistant
-    const fields = ['email', 'password', 'pseudo', 'cityCode', 'city', 'phone']
+    const fields = ['email', 'password', 'pseudo']
     const fieldSuccess = fields.every(field => userRequest.hasOwnProperty(field));
     if (!fieldSuccess) {
         return httpApiResponse(response, "713", "Il manque un ou des champs", null);
@@ -87,19 +87,21 @@ router.post("/signup", async (request, response) => {
 });
 
 router.post("/reset-password", async (request, response) => {
+    const { email, newPassword } = request.body;
 
-    const userRequest = request.body;
-
-    let foundUser = DB_USERS.find(user => user.email === userRequest.email);
-
-    const newPassword = generetePassword(8);
-
-    // Reset password
-    if (foundUser) {
-        foundUser.password = newPassword
+    if (!email || !newPassword) {
+        return httpApiResponse(response, "713", "Email et nouveau mot de passe requis", null);
     }
 
-    return httpApiResponse(response, "200", "Mot de passe réinitialisé avec succès", newPassword);
+    let foundUser = DB_USERS.find(user => user.email === email);
+
+    if (!foundUser) {
+        return httpApiResponse(response, "714", "Utilisateur non trouvé", null);
+    }
+
+    foundUser.password = newPassword;
+
+    return httpApiResponse(response, "200", "Mot de passe réinitialisé avec succès", null);
 });
 
 router.get("/check", (request, response) => {

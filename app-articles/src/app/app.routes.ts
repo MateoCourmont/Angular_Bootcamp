@@ -6,8 +6,14 @@ import { ForgotPasswordPage } from './pages/forgot-password-page/forgot-password
 import { ArticlesPage } from './pages/articles-page/articles-page';
 import { ArticlesAddPage } from './pages/articles-add-page/articles-add-page';
 import { ArticleDetailsPage } from './pages/article-details-page/article-details-page';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
+    {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
+    },
     {
         path: 'login', 
         component: LoginPage,
@@ -17,24 +23,28 @@ export const routes: Routes = [
         component: RegisterPage
     },
     {
-        path: 'password/forgot',
+        path: 'forgot-password',
         component: ForgotPasswordPage
     },
     {
         path: 'articles',
-        component: ArticlesPage
+        component: ArticlesPage,
+        canActivate: [authGuard]
     },
     {
         path: 'article-add',
-        component: ArticlesAddPage
+        component: ArticlesAddPage,
+        canActivate: [authGuard]
     },
     { 
         path: 'articles/edit/:id', 
-        component: ArticlesAddPage 
+        component: ArticlesAddPage,
+        canActivate: [authGuard]
     },
     {
         path: 'articles/:id',
-        component: ArticleDetailsPage
+        component: ArticleDetailsPage,
+        canActivate: [authGuard]
     }
 ];
 

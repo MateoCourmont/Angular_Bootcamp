@@ -9,9 +9,10 @@
     /* Thème vert light : #73deb1 dark : #224235*/
     /* Théme violet light : #caa4eb dark :  #432959 */
     /* Thème jaune light : #fcba03 dark : #c95706 */
+    /* Thème bleu light : #5d97f5 dark : #7f5dde */
 
-    --color-accent: #f7bcd9; 
-    --color-accent-dark: #b8256c; 
+    --color-accent: #5d97f5; 
+    --color-accent-dark: #7f5dde; 
 }
 
 .input-field {

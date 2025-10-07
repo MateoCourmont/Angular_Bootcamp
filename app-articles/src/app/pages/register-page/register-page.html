@@ -19,28 +19,37 @@
         <div class="right-side flex flex-col w-full lg:h-full md:h-1/2 lg:w-2/5 items-start lg:items-center lg:justify-start p-8 lg:px-20 lg:py-30 gap-10 lg:gap-20 rounded-t-3xl lg:rounded-none bg-neutral-100 dark:bg-neutral-800">
             <p class="text-4xl lg:text-6xl font-poppins font-semibold text-black dark:text-neutral-50">Inscription</p>
 
-            <form action="" class="flex flex-col w-full gap-6">
+            <form #registerForm="ngForm" (ngSubmit)="signup()" class="flex flex-col w-full gap-6">
 
                 <!-- Username & Email & Password -->
 
                 <div class="field-container">
                     <label class="label-field">Nom d'utilisateur</label>
-                    <input type="text" class="input-field">
+                    <input type="text" name="pseudo" [(ngModel)]="user.pseudo" required #pseudoField="ngModel" class="input-field">
+                    <p *ngIf="pseudoField.invalid && pseudoField.touched" class="text-red-600">Nom d'utilisateur requis</p>
                 </div>
 
                 <div class="field-container">
                     <label class="label-field">Adresse email</label>
-                    <input type="email" class="input-field">
+                    <input type="email" name="email" [(ngModel)]="user.email" required #emailField="ngModel" class="input-field">
+                    <p *ngIf="emailField.invalid && emailField.touched" class="text-red-600">Email requis</p>
                 </div>
 
                 <div class="field-container">
                     <label class="label-field">Mot de passe</label>
-                    <input type="password" class="input-field">
+                    <input type="password" name="password" [(ngModel)]="user.password" required #passwordField="ngModel" class="input-field">
+                    <p *ngIf="passwordField.invalid && passwordField.touched" class="text-red-600">Mot de passe requis</p>
+                </div>
+
+                <div class="field-container">
+                    <label class="label-field">Confirmer le mot de passe</label>
+                    <input type="password" name="passwordConfirm" [(ngModel)]="user.passwordConfirm" required #passwordConfirmField="ngModel" class="input-field">
+                    <p *ngIf="passwordConfirmField.invalid && passwordConfirmField.touched" class="text-red-600">Confirmation du mot de passe requise</p>
                 </div>
 
                 <!-- Submit button -->
 
-                <button class="btn-format text-lg font-semibold w-full bg-accent dark:bg-accent-dark py-2 rounded-md text-neutral-50 mt-4 hover:cursor-pointer" (click)="register()">Créer un compte</button>
+                <button type="submit" [disabled]="registerForm.invalid" class="btn-format text-lg font-semibold w-full bg-accent dark:bg-accent-dark py-2 rounded-md text-neutral-50 mt-4 hover:cursor-pointer">Créer un compte</button>
 
                 <p class="text-lg font-poppins text-black dark:text-neutral-50">Déjà un compte ? <a routerLink="/login" class="text-lg font-poppins text-black dark:text-neutral-50 hover:text-accent dark:hover:text-accent-dark underline">Se connecter</a></p>
             </form>
