@@ -4,13 +4,12 @@ import { Article } from '../../models/article-model';
 import { CommonModule } from '@angular/common';
 import { ArticleService } from '../../services/article-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPencil, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-article-details-page',
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, RouterLink],
   templateUrl: './article-details-page.html',
 })
 export class ArticleDetailsPage implements OnInit {
@@ -18,6 +17,9 @@ export class ArticleDetailsPage implements OnInit {
   faTrash = faTrash;
   faPencil = faPencil;
   faCartShopping = faCartShopping;
+
+  successMessage = '';
+  errorMessage = '';
 
   constructor(
     private articleService: ArticleService,
@@ -33,20 +35,38 @@ export class ArticleDetailsPage implements OnInit {
         this.article = article;
       },
       error: (err) => {
-        console.error('Erreur lors du chargement de l’article :', err);
+        this.showErrorMessage('Erreur lors du chargement de l’article.');
+        console.error(err);
       }
     });
   }
 
   deleteArticle(articleId?: string | number) {
-  if (!articleId) return;
+    if (!articleId) return;
 
-  this.articleService.deleteArticle(articleId.toString()).subscribe({
-    next: () => {
-      console.log(`Article ${articleId} supprimé !`);
-      window.location.href = '/articles';
-    },
-    error: (err) => console.error('Erreur suppression article:', err)
-  });
-}
+    this.articleService.deleteArticle(articleId.toString()).subscribe({
+      next: () => {
+        this.showSuccessMessage(`Article supprimé avec succès !`);
+        setTimeout(() => {
+          window.location.href = '/articles';
+        }, 2000);
+      },
+      error: (err) => {
+        this.showErrorMessage('Erreur lors de la suppression de l’article.');
+        console.error(err);
+      }
+    });
+  }
+
+  private showSuccessMessage(message: string) {
+    this.successMessage = message;
+    this.errorMessage = '';
+    setTimeout(() => (this.successMessage = ''), 3000);
+  }
+
+  private showErrorMessage(message: string) {
+    this.errorMessage = message;
+    this.successMessage = '';
+    setTimeout(() => (this.errorMessage = ''), 3000);
+  }
 }

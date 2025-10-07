@@ -35,5 +35,5 @@
 }
 
 .btn-format {
-  @apply shadow-lg cursor-pointer hover:scale-101 disabled:cursor-not-allowed;
+  @apply shadow-lg cursor-pointer hover:scale-101 disabled:cursor-not-allowed text-lg p-2 rounded-lg font-poppins;
 }

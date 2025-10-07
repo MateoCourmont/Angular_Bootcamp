@@ -61,12 +61,31 @@ router.get("/:id", async (request, response) => {
  * Route POST : Pour ajouter un article
  */
 router.post("/save", upload.single('img'), (req, res) => {
-    // Les champs texte sont dans req.body
-    const { title, desc, price, author } = req.body;
+    // Récupérer les champs texte + id si modification
+    const { id, title, desc, price, author } = req.body;
 
-    // Le fichier est dans req.file
-    const imgPath = req.file ? '/uploads/' + req.file.filename : '/assets/images/default.png';
+    // Chercher l'article existant si id fourni
+    const existingArticle = id ? DB_Articles.find(article => article.id === id) : null;
 
+    // Déterminer le chemin de l'image
+    const imgPath = req.file 
+        ? '/uploads/' + req.file.filename 
+        : existingArticle 
+            ? existingArticle.imgPath 
+            : '/assets/images/default.png';
+
+    if (existingArticle) {
+        // Modification
+        existingArticle.title = title;
+        existingArticle.desc = desc;
+        existingArticle.price = parseFloat(price);
+        existingArticle.author = author;
+        existingArticle.imgPath = imgPath;
+
+        return httpApiResponse(res, "200", "Article modifié avec succès !", existingArticle);
+    }
+
+    // Création
     const newArticle = {
         id: uuidv4(),
         title,
@@ -78,7 +97,7 @@ router.post("/save", upload.single('img'), (req, res) => {
 
     DB_Articles.push(newArticle);
 
-    return httpApiResponse(res, "200", "Article crée avec succès !", newArticle);
+    return httpApiResponse(res, "200", "Article créé avec succès !", newArticle);
 });
 
 

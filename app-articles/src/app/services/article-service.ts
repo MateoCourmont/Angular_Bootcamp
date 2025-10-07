@@ -13,11 +13,11 @@ export class ArticleService {
   constructor(private http: HttpClient) {}
 
   // Ajouter un article
-  addArticle(article: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/save`, article);
-  }
+addArticle(article: FormData): Observable<any> {
+  return this.http.post(`${this.baseUrl}/save`, article);
+}
 
-  getArticleById(id: string): Observable<Article> {
+getArticleById(id: string): Observable<Article> {
   return this.http.get<{ code: string, data: Article, message: string }>(`${this.baseUrl}/${id}`)
     .pipe(
       map(response => response.data)
